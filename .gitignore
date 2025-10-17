@@ -2,5 +2,5 @@ vir_env/
 .env
 __pycache__/
 .DS_Store
-
+resource/uploads/
 *.log

@@ -1,5 +1,5 @@
 from pypdf import PdfReader
-from core.rag.knowledge_base.parser.parser_base import BaseParser
+from .parser_base import BaseParser
 
 
 class PyPDFParser(BaseParser):

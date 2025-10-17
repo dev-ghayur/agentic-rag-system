@@ -1,15 +1,15 @@
 from __future__ import annotations
 from typing import Any, Dict, Optional
 from langchain_google_genai import ChatGoogleGenerativeAI
-from core.config import GEMINI_CONFIG
+from core.config import GEMINI_CONFIG, DEFAULT_MODEL
 
 def get_llm() -> ChatGoogleGenerativeAI:
     """Factory function to create a Gemini LLM instance using LangChain."""
     try:
         llm = ChatGoogleGenerativeAI(
-            model=GEMINI_CONFIG["model_name"] or "gemini-2.5-flash",
-            temperature=GEMINI_CONFIG["temperature"],
-            max_output_tokens=GEMINI_CONFIG["max_tokens"],
+            model = GEMINI_CONFIG["model_name"] or DEFAULT_MODEL,
+            temperature = GEMINI_CONFIG["temperature"],
+            max_output_tokens = GEMINI_CONFIG["max_tokens"],
             **GEMINI_CONFIG["extras"],
         )
         return llm
@@ -18,6 +18,7 @@ def get_llm() -> ChatGoogleGenerativeAI:
 
 
 if __name__ == "__main__":
+    # This code is just for quick verification of the working of the Gemini LLM integration.
     llm = get_llm()
 
     system_prompt = "You are a knowledgeable assistant."

@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # LLM Configuration
+DEFAULT_MODEL = "gemini-2.5-flash"
 GEMINI_CONFIG = {
     "model_name": "gemini-2.5-flash",
     "temperature": 0.7,

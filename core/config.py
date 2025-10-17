@@ -1,6 +1,16 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # LLM Configuration
+GEMINI_CONFIG = {
+    "model_name": "gemini-2.5-flash",
+    "temperature": 0.7,
+    "max_tokens": 1024,
+    "streaming": True,
+    "extras": {},
+}
+
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # Web Search Configuration

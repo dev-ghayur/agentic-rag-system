@@ -7,6 +7,8 @@ class PyPDFParser(BaseParser):
         """Parse a PDF document from the given file path and return a list of text blocks (paragraphs)
         for chunking/embedding.Handles missing files, empty files, corrupted files, and format mismatches."""
         parsed_output = []
+        title = file_path.split("/")[-1].replace(".pdf","")
+        source = file_path
 
         try:
             # Read the PDF document
@@ -22,8 +24,17 @@ class PyPDFParser(BaseParser):
                 text = page.extract_text()
                 if text:
                     # Split the text into paragraphs based on double newlines
-                    paragraphs = [para.strip() for para in text.split('\n\n') if para.strip()]
-                    parsed_output.extend(paragraphs)
+                    # paragraphs = [para.strip() for para in text.split('\n\n') if para.strip()]
+                    # parsed_output.extend(paragraphs)
+                    cleaned_text = text.replace('\n', ' ').replace('\r', ' ')
+                    parsed_output.append({
+                        "text": cleaned_text.strip(),
+                        "metadata": {
+                            "title": title,
+                            "source": source,
+                            "page": page_num + 1
+                        }
+                    })
 
             if not parsed_output:
                 print(f"Warning: File contains no usable text -> {file_path}")
@@ -44,9 +55,8 @@ if __name__ == "__main__":
     parsed_output = parser.process_file(sample_file)
 
     print("Parsed Output:")
-    for i, paragraph in enumerate(parsed_output, start=1):
-        print(f"--- Paragraph {i} ---")
-        print(paragraph)
-        if i == 5:
+    for i,item in enumerate(parsed_output):
+        print(item['text'])
+        if i == 1:
             break # Print only first 5 paragraphs
         print()
